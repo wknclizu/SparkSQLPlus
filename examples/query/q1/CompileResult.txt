@@ -1,0 +1,28 @@
+CompileResult(
+  setupActions = [
+
+  ReadSourceTableAction(v1,examples/data/graph.dat,List(0, 1),List(IntDataType, IntDataType))
+  FunctionDefinitionAction(List(val longLessThan = (x: Long, y: Long) => x < y))
+],
+  reduceActions = [
+
+  KeyByAction(v2,v1,List(1),List(sqlplus.compile.SqlPlusCompiler$$Lambda$654/0x0000000801136b40@a85644c),false)
+  GroupByAction(v3,v2)
+  CreateCommonExtraColumnAction(v5,v4,v3,2,(x: Long, y: Long) => longLessThan(x, y),Long,Long,Long,Long)
+  KeyByAction(v6,v1,List(0),List(sqlplus.compile.SqlPlusCompiler$$Lambda$654/0x0000000801136b40@8054fe2),false)
+  AppendCommonExtraColumnAction(v7,v6,v5)
+  KeyByAction(v8,v7,List(1),List(sqlplus.compile.SqlPlusCompiler$$Lambda$658/0x0000000801132a40@1e3f0aea),true)
+  GroupByAction(v9,v8)
+  CreateCommonExtraColumnAction(v11,v10,v9,2,(x: Long, y: Long) => longLessThan(x, y),Long,Long,Long,Long)
+  KeyByAction(v12,v1,List(0),List(sqlplus.compile.SqlPlusCompiler$$Lambda$654/0x0000000801136b40@48268eec),false)
+  AppendCommonExtraColumnAction(v13,v12,v11)
+  ApplySelfComparisonAction(v14,v13,sqlplus.compile.SqlPlusCompiler$$Lambda$662/0x0000000801133738@69a024a0)
+],
+  enumerateActions = [
+
+  RootPrepareEnumerationAction(v15,v14,List(0),List(sqlplus.compile.SqlPlusCompiler$$Lambda$677/0x000000080113ba20@4bf80c29),List(1, 2))
+  EnumerateWithOneComparisonAction(v16,v10,v15,2,1,(x: Long, y: Long) => longLessThan(y, x),List(1),List(0, 1),List(sqlplus.compile.SqlPlusCompiler$$Lambda$683/0x000000080113f1f8@2d7637e6),Long,Long,Long,Long,Int)
+  EnumerateWithOneComparisonAction(v17,v4,v16,2,1,(x: Long, y: Long) => longLessThan(y, x),List(0, 1, 2),List(0, 1, 2),List(),Long,Long,Long,Long,Int)
+  FormatResultAction(v18,v17,List(sqlplus.compile.SqlPlusCompiler$$Lambda$685/0x000000080113dc00@515b9d4a, sqlplus.compile.SqlPlusCompiler$$Lambda$685/0x000000080113dc00@39b626e5, sqlplus.compile.SqlPlusCompiler$$Lambda$685/0x000000080113dc00@32a4ecbe, sqlplus.compile.SqlPlusCompiler$$Lambda$685/0x000000080113dc00@2e71240b, sqlplus.compile.SqlPlusCompiler$$Lambda$685/0x000000080113dc00@23cd5d42, sqlplus.compile.SqlPlusCompiler$$Lambda$685/0x000000080113dc00@2b44d6d0))
+]
+)

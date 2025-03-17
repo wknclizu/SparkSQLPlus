@@ -446,8 +446,64 @@ class LogicalPlanConverter(val variableManager: VariableManager, val catalogMana
                 runResult.candidates.take(limit)
         }
 
-        RunResult(selected, runResult.outputVariables, runResult.computations, runResult.isFull, runResult.isFreeConnex,
+        val result = RunResult(selected, runResult.outputVariables, runResult.computations, runResult.isFull, runResult.isFreeConnex,
             runResult.groupByVariables, runResult.aggregations, runResult.optTopK)
+
+        outputToFile(selected, runResult, "")
+
+        result
+    }
+
+    private def outputToFile(result: List[(JoinTree, ComparisonHyperGraph, List[ExtraCondition])], runResult: RunResult, path: String) = {
+        var i = 1;
+        for ((joinTree, comparisonHyperGraph, extraConditions) <- result) {
+            val fileName = path + "JoinTree" + i + ".txt"
+            val writer = new java.io.PrintWriter(new java.io.File(fileName))
+            writer.write("jt.root:\n" + joinTree.root + "\n")
+            writer.write("edges:\n")
+            for (edge <- joinTree.edges) {
+                writer.write(edge + "\n")
+            }
+
+            writer.write("relation in subset:\n")
+            for (relation <- joinTree.subset) {
+                writer.write(relation + "\n")
+            }
+
+            writer.write("comparison hypergraph edge:\n")
+            for (edge <- comparisonHyperGraph.edges) {
+                writer.write(edge + "\n")
+            }
+            writer.write("ExtraConditions:\n")
+            for (extraCondition <- extraConditions) {
+                writer.write(extraCondition.toString() + "\n")
+            }
+            writer.close()
+            i += 1
+        }
+        val fileName = path + "RunResult.txt"
+        val writer = new java.io.PrintWriter(new java.io.File(fileName))
+        writer.write("outputVariables:\n")
+        for (variable <- runResult.outputVariables) {
+            writer.write(variable.toString() + "\n")
+        }
+        writer.write("computations:\n")
+        for ((variable, expression) <- runResult.computations) {
+            writer.write(variable.toString() + ", " + expression.toString() + "\n")
+        }
+        writer.write("isFull:\n" + runResult.isFull + "\n")
+        writer.write("isFreeConnex:\n" + runResult.isFreeConnex + "\n")
+        writer.write("groupByVariables:\n")
+        for (variable <- runResult.groupByVariables) {
+            writer.write(variable.toString() + "\n")
+        }
+        writer.write("aggregations:\n")
+        for ((variable, string, expressions) <- runResult.aggregations) {
+            writer.write(variable.toString() + ", " + string + ", " + expressions.toString() + "\n")
+        }
+        writer.write("optTopK:\n")
+        writer.write(runResult.optTopK.toString() + "\n")
+        writer.close()
     }
 
     def traverseLogicalPlan(node: RelNode): Context = {

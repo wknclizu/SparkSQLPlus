@@ -1068,4 +1068,20 @@ case class ComparisonExtraColumn(columnVariableName: String, joinVariables: List
 
 case class CompileResult(setupActions: List[SetupAction],
                          reduceActions: List[ReduceAction],
-                         enumerateActions: List[EnumerateAction])
+                         enumerateActions: List[EnumerateAction]) {
+    override def toString: String = {
+        def formatList[T](name: String, list: List[T]): String = {
+            val elements = list match {
+                case Nil => "[]"
+                case _   => list.map("\n  " + _.toString).mkString("\n", "", "\n]")
+            }
+            s"$name = [${elements}"
+        }
+
+        s"""CompileResult(
+           |  ${formatList("setupActions", setupActions)},
+           |  ${formatList("reduceActions", reduceActions)},
+           |  ${formatList("enumerateActions", enumerateActions)}
+           |)""".stripMargin
+    }
+}

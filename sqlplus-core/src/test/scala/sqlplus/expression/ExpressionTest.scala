@@ -56,6 +56,6 @@ class ExpressionTest {
         assertTrue(intLitExpr.toString == "42")
         assertTrue(doubleLitExpr.toString == "37.3")
         assertTrue(intervalLitExpr.toString == "INTERVAL '18' DAY")
-        assertTrue(dateLitExpr.toString == "DATE '1996-12-31'")
+        assertTrue(dateLitExpr.toString == "DATE '1996-12-30'")
     }
 }

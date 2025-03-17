@@ -86,6 +86,9 @@ public class CliFrontend {
 
             SqlPlusCompiler sqlPlusCompiler = new SqlPlusCompiler(variableManager);
             CompileResult compileResult = sqlPlusCompiler.compile(catalogManager, runResult, true);
+//            System.out.println(compileResult.toString());
+            FileUtils.writeStringToFile(new File("CompileResult.txt"), compileResult.toString());
+
             CodeGenerator codeGenerator = new SparkSQLPlusExampleCodeGenerator(compileResult, packageName, objectName);
             StringBuilder builder = new StringBuilder();
             codeGenerator.generate(builder);
