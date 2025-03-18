@@ -15,8 +15,29 @@ class JoinTreeEdge(val node1: Relation, val node2: Relation) extends Edge[Relati
 
     lazy val keyType: KeyType = computeKeyType()
 
-    override def toString: String =
-        node1.toString + "->" + node2.toString
+    override def toString: String = {
+        val (src, dst) = if (keyType == KeyTypeParent) (node1, node2) else (node2, node1)
+        val connectedVars = src.getNodes().intersect(dst.getNodes())
+        val pkInfo = s"[PK: ${src.getPrimaryKeys().mkString(", ")}]"
+        val fkInfo = s"[FK: ${connectedVars.mkString(", ")}]"
+
+        s"""JoinTreeEdge(
+           |  src: ${src.getTableDisplayName()} ${formatVariables(src)} $pkInfo
+           |  dst: ${dst.getTableDisplayName()} ${formatVariables(dst)}
+           |  keyType: ${formatKeyType(keyType)}
+           |  connected: ${connectedVars.mkString(", ")}
+           |)""".stripMargin.replace("\n", "\n  ")
+    }
+
+    private def formatVariables(relation: Relation): String =
+        s"[${relation.getVariableList().map(_.toString).mkString(", ")}]"
+
+    private def formatKeyType(kt: KeyType): String = kt match {
+        case KeyTypeParent => "PK→FK"
+        case KeyTypeChild => "FK→PK"
+        case KeyTypeBoth => "PK⇄PK"
+        case KeyTypeNone => "NoKey"
+    }
 
     override def hashCode(): Int = node1.## ^ node2.##
 

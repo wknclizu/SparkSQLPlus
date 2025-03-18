@@ -83,6 +83,7 @@ public class CliFrontend {
 
             LogicalPlanConverter converter = new LogicalPlanConverter(variableManager, catalogManager);
             RunResult runResult = converter.runAndSelect(logicalPlan, "degree", false, 1, false, false);
+            FileUtils.writeStringToFile(new File("RunResult.txt"), runResult.toString());
 
             SqlPlusCompiler sqlPlusCompiler = new SqlPlusCompiler(variableManager);
             CompileResult compileResult = sqlPlusCompiler.compile(catalogManager, runResult, true);

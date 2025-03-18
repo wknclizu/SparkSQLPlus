@@ -446,12 +446,9 @@ class LogicalPlanConverter(val variableManager: VariableManager, val catalogMana
                 runResult.candidates.take(limit)
         }
 
-        val result = RunResult(selected, runResult.outputVariables, runResult.computations, runResult.isFull, runResult.isFreeConnex,
+        RunResult(selected, runResult.outputVariables, runResult.computations, runResult.isFull, runResult.isFreeConnex,
             runResult.groupByVariables, runResult.aggregations, runResult.optTopK)
 
-        outputToFile(selected, runResult, "")
-
-        result
     }
 
     private def outputToFile(result: List[(JoinTree, ComparisonHyperGraph, List[ExtraCondition])], runResult: RunResult, path: String) = {

@@ -1,0 +1,52 @@
+RunResult(
+  candidates = [
+  (
+    JoinTree: JoinTree(
+      root = g3
+      edges = [
+    JoinTreeEdge(
+          src: g1 [v7:IntDataType, v2:IntDataType, v8:LongDataType] [PK: ]
+          dst: g2 [v2:IntDataType, v4:IntDataType]
+          keyType: PK⇄PK
+          connected: v2:IntDataType
+        )
+    
+    JoinTreeEdge(
+          src: g2 [v2:IntDataType, v4:IntDataType] [PK: ]
+          dst: g3 [v4:IntDataType, v6:IntDataType, v10:LongDataType]
+          keyType: PK⇄PK
+          connected: v4:IntDataType
+        )
+      ]
+      subset = [g1, g3, g2]
+      isFixRoot = false
+      maxFanout = 1
+      pk2fkCount = 0
+      fk2pkCount = 0
+    ),
+    HyperGraph: ComparisonHyperGraph(
+      edges = 1 comparisons,
+      nodes = 2 joinTreeEdges,
+      maxDegree = 1,
+      isBergeAcyclic = true
+      comparisons = [
+        - Comparison;id=1;op=longLessThan;left=v8;right=v10;path=2<->6,7<->2
+      ]
+    ),
+    Conditions: [
+  
+    ]
+  )
+  ],
+  outputVariables = [v7:IntDataType, v2:IntDataType, v4:IntDataType, v6:IntDataType, v8:LongDataType, v10:LongDataType],
+  computations = [
+  
+  ],
+  isFull = true,
+  isFreeConnex = true,
+  groupByVariables = [],
+  aggregations = [
+  
+  ],
+  optTopK = None
+  )

@@ -34,6 +34,22 @@ class JoinTree(val root: Relation, val edges: Set[JoinTreeEdge], val subset: Set
     def getSubset(): Set[Relation] = subset
 
     def getMaxFanout(): Int = maxFanout
+
+    override def toString: String = {
+        val indent = "  "
+
+        s"""JoinTree(
+           |${indent}root = ${root.getTableDisplayName()}
+           |${indent}edges = [
+           |${edges.map(_.toString.split("\n").mkString("\n" + indent)).mkString("\n\n")}
+           |${indent}]
+           |${indent}subset = [${subset.map(_.getTableDisplayName()).mkString(", ")}]
+           |${indent}isFixRoot = $isFixRoot
+           |${indent}maxFanout = $maxFanout
+           |${indent}pk2fkCount = ${edges.count(_.keyType == KeyTypeParent)}
+           |${indent}fk2pkCount = ${edges.count(_.keyType == KeyTypeChild)}
+           |)""".stripMargin.replace("\n", "\n" + indent)
+    }
 }
 
 object JoinTree {

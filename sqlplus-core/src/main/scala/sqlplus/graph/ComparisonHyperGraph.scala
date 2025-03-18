@@ -65,4 +65,19 @@ class ComparisonHyperGraph(val edges: Set[Comparison]) extends HyperGraph[JoinTr
 
         nodesInBipartiteGraphToId.values.forall(id => noCircle(id))
     }
+    override def toString: String = {
+        val nodeCount = edges.flatMap(_.getNodes()).size
+        val maxDegree = getDegree()
+        val isAcyclic = isBergeAcyclic()  // 注意：此计算可能耗时，大型图慎用
+
+        s"""ComparisonHyperGraph(
+           |  edges = ${edges.size} comparisons,
+           |  nodes = $nodeCount joinTreeEdges,
+           |  maxDegree = $maxDegree,
+           |  isBergeAcyclic = $isAcyclic
+           |  comparisons = [
+           |${edges.map(_.toString).mkString("    - ", "\n    - ", "")}
+           |  ]
+           |)""".stripMargin.replace("\n", "\n  ")
+    }
 }

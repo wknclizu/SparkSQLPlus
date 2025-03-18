@@ -7,6 +7,7 @@ CREATE TABLE nation
     PRIMARY KEY (n_nationkey)
 ) WITH (
       'cardinality' = '25'
+--       'path' = '/mnt/ssd3/wknclizu/data/tpch_s1_z1/nation.tbl'
       );
 
 CREATE TABLE region
@@ -90,6 +91,7 @@ CREATE TABLE orders
     PRIMARY KEY (o_orderkey)
 ) WITH (
       'cardinality' = '150000000'
+--         'path' = '/mnt/ssd3/wknclizu/data/tpch_s1_z1/orders.tbl'
       );
 
 CREATE TABLE lineitem
