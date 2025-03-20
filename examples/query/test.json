@@ -1,0 +1,175 @@
+{
+  "code" : 200,
+  "message" : "success",
+  "ddl_name" : "",
+  "data" : {
+    "ddl" : null,
+    "query" : null,
+    "tables" : [ {
+      "name" : "Graph",
+      "columns" : [ "src", "dst" ]
+    } ],
+    "joinTrees" : [ {
+      "nodes" : [ {
+        "id" : 1,
+        "type" : "TableScanRelation",
+        "alias" : "g1",
+        "reserves" : [ "v2" ],
+        "hintJoinOrder" : [ ],
+        "cardinality" : 0,
+        "source" : "Graph",
+        "columns" : [ "v1", "v2" ]
+      }, {
+        "id" : 2,
+        "type" : "TableScanRelation",
+        "alias" : "g2",
+        "reserves" : [ "v4" ],
+        "hintJoinOrder" : [ ],
+        "cardinality" : 0,
+        "source" : "Graph",
+        "columns" : [ "v2", "v4" ]
+      }, {
+        "id" : 3,
+        "type" : "TableScanRelation",
+        "alias" : "g3",
+        "reserves" : [ ],
+        "hintJoinOrder" : [ ],
+        "cardinality" : 0,
+        "source" : "Graph",
+        "columns" : [ "v4", "v6" ]
+      }, {
+        "id" : 4,
+        "type" : "TableScanRelation",
+        "alias" : "g4",
+        "reserves" : [ "v6" ],
+        "hintJoinOrder" : [ ],
+        "cardinality" : 0,
+        "source" : "Graph",
+        "columns" : [ "v6", "v8" ]
+      } ],
+      "edges" : [ {
+        "src" : 3,
+        "dst" : 4,
+        "key" : "both"
+      }, {
+        "src" : 2,
+        "dst" : 1,
+        "key" : "both"
+      }, {
+        "src" : 3,
+        "dst" : 2,
+        "key" : "both"
+      } ],
+      "root" : 3,
+      "subset" : [ 2, 3 ],
+      "maxFanout" : 2,
+      "comparisons" : [ {
+        "op" : "intLessThan",
+        "path" : [ {
+          "src" : 2,
+          "dst" : 1,
+          "key" : "both"
+        }, {
+          "src" : 3,
+          "dst" : 2,
+          "key" : "both"
+        }, {
+          "src" : 3,
+          "dst" : 4,
+          "key" : "both"
+        } ],
+        "left" : "v1",
+        "right" : "v8",
+        "cond" : "(v1 < v8)"
+      } ],
+      "extraConditions" : [ ],
+      "fixRoot" : false
+    }, {
+      "nodes" : [ {
+        "id" : 1,
+        "type" : "TableScanRelation",
+        "alias" : "g1",
+        "reserves" : [ "v2" ],
+        "hintJoinOrder" : [ ],
+        "cardinality" : 0,
+        "source" : "Graph",
+        "columns" : [ "v1", "v2" ]
+      }, {
+        "id" : 2,
+        "type" : "TableScanRelation",
+        "alias" : "g2",
+        "reserves" : [ ],
+        "hintJoinOrder" : [ ],
+        "cardinality" : 0,
+        "source" : "Graph",
+        "columns" : [ "v2", "v4" ]
+      }, {
+        "id" : 3,
+        "type" : "TableScanRelation",
+        "alias" : "g3",
+        "reserves" : [ "v4" ],
+        "hintJoinOrder" : [ ],
+        "cardinality" : 0,
+        "source" : "Graph",
+        "columns" : [ "v4", "v6" ]
+      }, {
+        "id" : 4,
+        "type" : "TableScanRelation",
+        "alias" : "g4",
+        "reserves" : [ "v6" ],
+        "hintJoinOrder" : [ ],
+        "cardinality" : 0,
+        "source" : "Graph",
+        "columns" : [ "v6", "v8" ]
+      } ],
+      "edges" : [ {
+        "src" : 2,
+        "dst" : 1,
+        "key" : "both"
+      }, {
+        "src" : 3,
+        "dst" : 4,
+        "key" : "both"
+      }, {
+        "src" : 2,
+        "dst" : 3,
+        "key" : "both"
+      } ],
+      "root" : 2,
+      "subset" : [ 2, 3 ],
+      "maxFanout" : 2,
+      "comparisons" : [ {
+        "op" : "intLessThan",
+        "path" : [ {
+          "src" : 2,
+          "dst" : 1,
+          "key" : "both"
+        }, {
+          "src" : 2,
+          "dst" : 3,
+          "key" : "both"
+        }, {
+          "src" : 3,
+          "dst" : 4,
+          "key" : "both"
+        } ],
+        "left" : "v1",
+        "right" : "v8",
+        "cond" : "(v1 < v8)"
+      } ],
+      "extraConditions" : [ ],
+      "fixRoot" : false
+    } ],
+    "computations" : [ ],
+    "outputVariables" : [ "v9" ],
+    "groupByVariables" : [ "v2", "v6" ],
+    "aggregations" : [ {
+      "result" : "v9",
+      "func" : "COUNT",
+      "args" : [ ]
+    } ],
+    "topK" : null,
+    "full" : false,
+    "freeConnex" : false
+  }
+}

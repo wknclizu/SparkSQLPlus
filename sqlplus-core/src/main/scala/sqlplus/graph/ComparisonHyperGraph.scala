@@ -68,7 +68,7 @@ class ComparisonHyperGraph(val edges: Set[Comparison]) extends HyperGraph[JoinTr
     override def toString: String = {
         val nodeCount = edges.flatMap(_.getNodes()).size
         val maxDegree = getDegree()
-        val isAcyclic = isBergeAcyclic()  // 注意：此计算可能耗时，大型图慎用
+        val isAcyclic = isBergeAcyclic()
 
         s"""ComparisonHyperGraph(
            |  edges = ${edges.size} comparisons,

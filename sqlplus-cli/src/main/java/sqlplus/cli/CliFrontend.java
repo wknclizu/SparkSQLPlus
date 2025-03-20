@@ -85,16 +85,16 @@ public class CliFrontend {
             RunResult runResult = converter.runAndSelect(logicalPlan, "degree", false, 1, false, false);
             FileUtils.writeStringToFile(new File("RunResult.txt"), runResult.toString());
 
-            SqlPlusCompiler sqlPlusCompiler = new SqlPlusCompiler(variableManager);
-            CompileResult compileResult = sqlPlusCompiler.compile(catalogManager, runResult, true);
-//            System.out.println(compileResult.toString());
-            FileUtils.writeStringToFile(new File("CompileResult.txt"), compileResult.toString());
-
-            CodeGenerator codeGenerator = new SparkSQLPlusExampleCodeGenerator(compileResult, packageName, objectName);
-            StringBuilder builder = new StringBuilder();
-            codeGenerator.generate(builder);
-
-            FileUtils.writeStringToFile(new File(outputPath), builder.toString());
+//            SqlPlusCompiler sqlPlusCompiler = new SqlPlusCompiler(variableManager);
+//            CompileResult compileResult = sqlPlusCompiler.compile(catalogManager, runResult, true);
+////            System.out.println(compileResult.toString());
+//            FileUtils.writeStringToFile(new File("CompileResult.txt"), compileResult.toString());
+//
+//            CodeGenerator codeGenerator = new SparkSQLPlusExampleCodeGenerator(compileResult, packageName, objectName);
+//            StringBuilder builder = new StringBuilder();
+//            codeGenerator.generate(builder);
+//
+//            FileUtils.writeStringToFile(new File(outputPath), builder.toString());
         }
     }
 }
